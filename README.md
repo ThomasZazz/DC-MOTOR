@@ -1,5 +1,5 @@
 # DC Motor Diagnostic System
-This project is a diagnostic and measurement system for a 12V DC motor, developed using an Arduino UNO R4. It allows real-time monitoring of **voltage**, **current**, and **power**, and helps detect anomalies in motor operation based on expected no-load current values from the datasheet.
+This project is a diagnostic and measurement system for a 12V DC motor, developed using an Arduino UNO R4 WIFI. It allows real-time monitoring of **voltage**, **current**, and **power**, and helps detect anomalies in motor operation based on expected no-load current values from the datasheet.
 
 ## Components Used
 - Arduino UNO R4 WIFI
