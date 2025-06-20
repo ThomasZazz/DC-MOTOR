@@ -1,0 +1,119 @@
+#include <Wire.h>
+#include <hd44780.h>
+#include <hd44780ioClass/hd44780_I2Cexp.h>
+
+hd44780_I2Cexp lcd;
+
+//  MOTOR CONTROL PINS 
+const int PWM_MOTOR = 6;
+const int MOTOR_DIRECTION = 3;
+const int ENABLE_RIGHT = 7;
+const int ENABLE_LEFT = 8;
+
+//  SENSOR READING PINS 
+const int VOLTAGE_PIN = A0;
+const int CURRENT_PIN = A3;
+
+// EMERGENCY BUTTON 
+const int EMERGENCY_BUTTON = 13;
+
+// CONVERSION CONSTANTS 
+const float VCC = 5.0;
+const float ADC_RESOLUTION = 1023.0;
+const float VOLTAGE_RATIO = 4.40; // MANUAL CALIBRATION
+const float ZERO_CURRENT_VOLTAGE = 2.55; // MANUAL CALIIBRATION
+const float CURRENT_SENSITIVITY = 0.066;
+
+//  TIMINGS 
+const unsigned long START_DELAY = 20000;   // 20 SECONDS IN MILLISECONDS
+const unsigned long TEST_DURATION = 180000; // 3 MINUTES IN MILLISECONDS
+
+//  STATE VARIABLES 
+unsigned long programStartTime;
+unsigned long testStartTime;
+bool testStarted = false;
+bool testCompleted = false;
+
+void setup() {
+  Serial.begin(9600);
+  lcd.begin(16, 2);
+  lcd.backlight();
+  lcd.print("Please wait...");
+
+  pinMode(PWM_MOTOR, OUTPUT);
+  pinMode(MOTOR_DIRECTION, OUTPUT);
+  pinMode(ENABLE_RIGHT, OUTPUT);
+  pinMode(ENABLE_LEFT, OUTPUT);
+  pinMode(EMERGENCY_BUTTON, INPUT_PULLUP);
+
+  digitalWrite(ENABLE_RIGHT, HIGH);
+  digitalWrite(ENABLE_LEFT, HIGH);
+
+  programStartTime = millis();
+}
+
+void loop() {
+  unsigned long now = millis();
+
+  //  EMERGENCY CHECK 
+  if (digitalRead(EMERGENCY_BUTTON) == LOW) {
+    analogWrite(PWM_MOTOR, 0);
+    testCompleted = true;
+    lcd.clear();
+    lcd.print("!!! EMERGENCY !!!");
+    Serial.println("Emergency stop activated!");
+    while (1); // Total program halt
+  }
+
+  // === START TEST AFTER DELAY ===
+  if (!testStarted && now - programStartTime >= START_DELAY) {
+    analogWrite(PWM_MOTOR, 255);
+    digitalWrite(MOTOR_DIRECTION, LOW); 
+    testStartTime = now;
+    testStarted = true;
+
+    lcd.clear();
+    lcd.print("Test in progress");
+    Serial.println("VOLTAGE\tCURRENT\tPOWER");
+  }
+
+  //  EXIT IF TEST NOT STARTED OR ALREADY COMPLETED 
+  if (!testStarted || testCompleted) return;
+
+  //  END TEST 
+  if (now - testStartTime >= TEST_DURATION) {
+    analogWrite(PWM_MOTOR, 0);
+    lcd.clear();
+    lcd.print("Test complete");
+    Serial.println("Test finished");
+    testCompleted = true;
+    return;
+  }
+
+  // === SENSOR READINGS ===
+  float voltageReading = analogRead(VOLTAGE_PIN);
+  float voltage = (voltageReading * VCC / ADC_RESOLUTION) * VOLTAGE_RATIO;
+
+  float currentReading = analogRead(CURRENT_PIN);
+  float currentVoltage = currentReading * VCC / ADC_RESOLUTION;
+  float current = (currentVoltage - ZERO_CURRENT_VOLTAGE) / CURRENT_SENSITIVITY;
+  if (current < 0.0) current = 0.0;
+
+  float power = voltage * current;
+
+  // DISPLAY ON LCD 
+  lcd.setCursor(0, 0);
+  lcd.print("V:"); lcd.print(voltage, 1); lcd.print("V ");
+  lcd.print("I:"); lcd.print(current, 3); lcd.print("A");
+
+  lcd.setCursor(0, 1);
+  lcd.print("P:"); lcd.print(power, 1); lcd.print("W ");
+  lcd.print(" S:100% ");
+
+  //  PRINT TO SERIAL MONITOR 
+  Serial.print("VOLTAGE:"); Serial.print(voltage, 2); Serial.print("\t");
+  Serial.print("CURRENT:"); Serial.print(current, 3); Serial.print("\t");
+  Serial.print("POWER:"); Serial.println(power, 2);
+
+  delay(500);
+}
