@@ -1,7 +1,5 @@
  Current Sensor (ACS712) Wiring
 
-The current sensor used in this setup is an ACS712 module, which is capable of measuring current flowing through the DC motor.
-It is placed between the power supply and the motor, allowing the system to read real-time current data through the Arduino.
 
 Location in the Hardware
 
