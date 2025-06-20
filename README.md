@@ -2,11 +2,11 @@
 This project is a diagnostic and measurement system for a 12V DC motor, developed using an Arduino UNO R4 WIFI. It allows real-time monitoring of **voltage**, **current**, and **power**, and helps detect anomalies in motor operation based on expected no-load current values from the datasheet.
 
 ## Components Used
-- Arduino UNO R4 WIFI
-- 16x2 LCD display (I2C)
-- Fasizi BTS7960 5.5V to 27V 43A high power motor driver module/intelligent car driver module
+- Arduino UNO R4 WIFI [`/FEATURES`](./FEATURES)
+- 16x2 LCD display (I2C) [`/FEATURES`](./FEATURES)
+- Fasizi BTS7960 5.5V to 27V 43A high power motor driver module/intelligent car driver module [`/FEATURES`](./FEATURES)
 - Voltage sensor (DollaTek 5PCS Level 3 Sensor Module with 25V Maximum Voltage Detector for Arduino)[`/FEATURES`](./FEATURES)
-- Current sensor (ACS712)
+- Current sensor (ACS712) [`/FEATURES`](./FEATURES)
 - 12V DC motor(DollaTek 31ZY DC 12V 6500rpm magnetic motor tubular brushed motor with high torque)
   - DATASHEET:  
     Technical specifications:
