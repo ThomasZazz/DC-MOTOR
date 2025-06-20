@@ -1,0 +1,45 @@
+ Arduino Wiring Explanation 
+
+The Arduino board used is an Arduino UNO R4 WIFI, which serves as the central controller for reading sensor data, controlling the motor, and handling display/output.
+
+
+Arduino Pin Connections
+
+|        Arduino Pin       |             Connected To                      |            Purpose                  |
+| ------------------------ | --------------------------------------------- | ----------------------------------- |
+|  D6 (PWM_MOTOR)          | Motor Driver (PWM pin)                        | Controls motor speed via PWM        |
+|  D3 (MOTOR_DIRECTION)    | Motor Driver (IN1/IN2)                        | Controls motor rotation direction   |
+|  D7 (ENABLE_RIGHT)       | Motor Driver (ENA)                            | Enables right side of H-bridge      |
+|  D8 (ENABLE_LEFT)        | Motor Driver (ENB)                            | Enables left side of H-bridge       |
+|  A0 (VOLTAGE_PIN)        | Voltage Sensor output                         | Reads analog voltage from the motor |
+|  A3 (CURRENT_PIN)        | Current Sensor output                         | Reads analog current from the motor |
+|  D13 (EMERGENCY_BUTTON)  | Emergency Stop Button (to GND when pressed)   | Detects emergency stop signal       |
+|  SDA/SCL                 | LCD via I2C module                            | Communicates with LCD display       |
+|  GND                     | Connected to all GNDs (sensors, driver, etc.) | Ensures common ground               |
+| 5V                       | Powers LCD and possibly sensors (low power)   | Provides regulated 5V power         |
+
+
+ I2C LCD Display (16x2)
+
+ Connected to SDA and SCL (I2C pins)
+ Powered via 5V and GND from Arduino
+ Used to show real-time values: voltage, current, power, status
+
+The LCD uses the hd44780 I2C backpack , which allows communication using only  two data lines .
+
+
+ Sensor Inputs
+
+A0: receives analog signal from the voltage divider or voltage sensor
+A3: receives analog signal from the current sensor 
+Both are processed using calibration constants in code to convert raw readings into real-world values.
+
+
+Emergency Button
+
+ Connected to D13
+ Configured as INPUT_PULLUP, so it goes LOW when pressed
+ Used to immediately shut off the motor and halt operation
+
+
+
