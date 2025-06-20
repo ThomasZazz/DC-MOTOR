@@ -47,7 +47,7 @@ This project is a diagnostic and measurement system for a 12V DC motor, develope
 
 ## 💾 Code
 
-You can find the main Arduino code inside the [`/code`](./code) folder.
+You can find the main Arduino code inside the [`/CODE`](./CODE) folder.
 
 ## 📊 Sample Output
 
