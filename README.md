@@ -5,7 +5,7 @@ This project is a diagnostic and measurement system for a 12V DC motor, develope
 - Arduino UNO R4 WIFI
 - 16x2 LCD display (I2C)
 - Fasizi BTS7960 5.5V to 27V 43A high power motor driver module/intelligent car driver module
-- Voltage sensor (DollaTek 5PCS Level 3 Sensor Module with 25V Maximum Voltage Detector for Arduino)[`/FEATURES`](./VOLTAGESENSOR)
+- Voltage sensor (DollaTek 5PCS Level 3 Sensor Module with 25V Maximum Voltage Detector for Arduino)[`/FEATURES`](./VOLTAGE SENSOR)
 - Current sensor (ACS712)
 - 12V DC motor(DollaTek 31ZY DC 12V 6500rpm magnetic motor tubular brushed motor with high torque)
   - DATASHEET:  
