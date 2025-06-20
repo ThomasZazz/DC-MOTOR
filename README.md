@@ -8,7 +8,7 @@ This project is a diagnostic and measurement system for a 12V DC motor, develope
 - Voltage sensor (DollaTek 5PCS Level 3 Sensor Module with 25V Maximum Voltage Detector for Arduino)
 - Current sensor (ACS712)
 - 12V DC motor(DollaTek 31ZY DC 12V 6500rpm magnetic motor tubular brushed motor with high torque)
-  - DATASHEET:
+  - DATASHEET: 
     Technical specifications:
   Voltage: 12V
   No-load current:  350mA
