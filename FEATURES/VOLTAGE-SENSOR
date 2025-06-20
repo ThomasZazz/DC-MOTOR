@@ -1,6 +1,5 @@
  Voltage Sensor Wiring
 
-The voltage sensor module used in this project is a standard 0–25V analog voltage sensor, commonly found with a blue PCB, screw terminal input, and 3-pin output header (VCC, GND, OUT).
 
 Connections Overview
 
