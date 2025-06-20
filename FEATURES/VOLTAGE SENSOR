@@ -1,0 +1,29 @@
+##  Voltage Sensor Wiring
+
+The voltage sensor module used in this project is a standard 0–25V analog voltage sensor, commonly found with a blue PCB, screw terminal input, and 3-pin output header (VCC, GND, OUT).
+
+##  Connections Overview
+
+## 1. Input Terminal Block (Green screw terminal)
+
+This is where the voltage to be measured is applied.
+
+* `+` — Connected to the **positive terminal of the power supply** (e.g., motor supply, 12V).
+* `–` — Connected to **GND** (shared with the system ground).
+
+## 2. **Output Pins (3-pin header)**
+
+These pins connect the module to the Arduino for power and data.
+
+* `VCC` — Connected to **Arduino 5V** (module power supply).
+* `GND` — Connected to **Arduino GND**.
+* `OUT` — Connected to **Arduino analog pin A0**, to read the scaled-down voltage.
+
+## Notes
+
+* The voltage sensor works by scaling down the input voltage using a resistive divider.
+* Make sure your input voltage does **not exceed the sensor’s rated input** (typically 25V max).
+* You must apply a **calibration factor** in your code to convert the analog reading to real voltage:
+
+cpp
+const float VOLTAGE_RATIO = 4.40; // Adjust based on your module’s divider ratio
