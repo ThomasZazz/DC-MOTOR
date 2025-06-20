@@ -41,7 +41,7 @@ This project is a diagnostic and measurement system for a 12V DC motor, develope
 3. If the motor's no-load current is higher than expected (based on datasheet), this suggests maintenance may be required.
 4. The test ends automatically after 3 minutes or if the emergency stop is pressed.
 
-## 💾 Code
+## Code
 
 You can find the main Arduino code inside the [`/CODE`](./CODE) folder.
 
