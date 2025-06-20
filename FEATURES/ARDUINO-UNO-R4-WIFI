@@ -2,7 +2,7 @@
 
 The Arduino board used is an Arduino UNO R4 WIFI, which serves as the central controller for reading sensor data, controlling the motor, and handling display/output.
 
-
+ 
 Arduino Pin Connections
 
 |        Arduino Pin       |             Connected To                      |            Purpose                  |
