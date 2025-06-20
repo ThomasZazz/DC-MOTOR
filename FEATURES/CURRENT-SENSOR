@@ -1,0 +1,45 @@
+ Current Sensor (ACS712) Wiring
+
+The current sensor used in this setup is an **ACS712 module**, which is capable of measuring current flowing through the DC motor. It is placed between the power supply and the motor, allowing the system to read real-time current data through the Arduino.
+
+Location in the Hardware
+
+The ACS712 module is located at the bottom right of the board in the image. It has:
+
+A green screw terminal (for high current connections),
+A 3-pin header for low-voltage connections (VCC, GND, OUT).
+
+
+###  Electrical Connections
+
+VCC              +5V rail on the breadboard               
+GND              Ground rail on the breadboard            
+ OUT             Connected to `A3` on the Arduino         
+ IP+ / IP−       In series between motor and power supply 
+
+
+ How it Works
+
+1. The high-current path (through the green screw terminals) connects the **power supply to the motor**, so all motor current passes through the sensor.
+2. The sensor outputs a voltage proportional to the current, centered at **2.5V when no current flows**.
+3. The analog signal from the **OUT** pin is read by the Arduino on analog pin **A3**.
+4. The Arduino processes this value using the following code:
+
+cpp
+float currentReading = analogRead(CURRENT_PIN);
+float currentVoltage = currentReading * VCC / ADC_RESOLUTION;
+float current = (currentVoltage - ZERO_CURRENT_VOLTAGE) / CURRENT_SENSITIVITY;
+if (current < 0.0) current = 0.0;
+
+
+ ZERO_CURRENT_VOLTAGE is the sensor output at 0 A (typically \~2.5V).
+ CURRENT_SENSITIVIT` depends on the model (e.g., 0.066 V/A for ACS712-30A).
+
+
+Tips for Reliable Operation
+
+ Ensure screw terminals are tightly fastened to handle motor current.
+ Use thick wires for high-current paths.
+ Double-check that **GND is common** across Arduino, sensor, and motor driver.
+ Keep analog wires (e.g. OUT to A3) short and separated from high-current cables to reduce noise.
+
