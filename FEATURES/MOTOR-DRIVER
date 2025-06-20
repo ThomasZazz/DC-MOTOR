@@ -1,0 +1,59 @@
+ Motor Driver Wiring
+
+
+Motor Driver Overview
+
+The motor driver module allows the Arduino to:
+
+Control the rotation direction of the DC motor.
+Adjust the motor speed using PWM.
+Isolate power between the control logic and motor circuitry.
+
+
+ Electrical Connections
+
+|       Driver Pin        |        Connected To             |                  Purpose                               |
+|-------------------------|---------------------------------|--------------------------------------------------------|
+|  IN1 / IN2              | Arduino D3                      | Motor direction control (HIGH/LOW)                     |
+| ENA / ENB               | Arduino D7 and D8               | Enable signals for right and left H-bridge sides       |
+| PWM                     | Arduino D6                      | PWM signal to adjust motor speed                       |
+| OUT1 / OUT2             | Motor terminals                 | Outputs to DC motor                                    |
+| 12V IN (Screw Terminal) | External 12V power supply       | Powers the motor via the H-Bridge                      |
+| GND                     | Shared with Arduino & power     | Common ground                                          |
+
+
+Power Supply Wiring
+
+ The 12V input terminal is connected to an external 12V DC power supply.
+ The GND of the driver is wired to the Arduino GND and power supply GND.
+ This ensures a shared ground reference for both logic and power systems.
+
+
+ Motor Output Wiring
+
+ The OUT1 a nd  OUT2  terminals are wired to the DC motor terminals (typically using red and blue wires).
+ This setup allows the driver to change the polarity of the motor voltage, thereby controlling its direction.
+
+
+ Control Signals from Arduino
+
+|   Arduino Pin    |   Motor Driver Pin   |   Function                           |
+|------------------|----------------------|--------------------------------------|
+|  D3              |  IN1 / IN2           | Sets the motor rotation direction    |
+|  D6              |  PWM                 | Controls motor speed via PWM         |
+|  D7              |  ENA                 | Enables one side of the H-Bridge     |
+|  D8              |  ENB                 | Enables the other side of H-Bridge   |
+
+In the Arduino code:
+  digitalWrite(D3, HIGH/LOW) changes the motor direction.
+  analogWrite(D6, value) adjusts speed.
+  D7 and D8 must be set HIGH to enable motor motion.
+
+
+ Notes and Tips
+
+ Always share GND between Arduino, motor driver, and power supply.
+ If your motor driver has jumpers on ENA/ENB, remove them to control enable pins via Arduino.
+ Use thick wires for the motor and power input to handle higher current.
+ Keep logic signal wires short (D3, D6, D7, D8) to avoid interference.
+
