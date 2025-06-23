@@ -21,8 +21,8 @@ OUT — Connected to **Arduino analog pin A0, to read the scaled-down voltage.
  Notes
 
 The voltage sensor works by scaling down the input voltage using a resistive divider.
- Make sure your input voltage does **not exceed the sensor’s rated input** (typically 25V max).
- You must apply a **calibration factor** in your code to convert the analog reading to real voltage:
+ Make sure your input voltage does not exceed the sensor’s rated input ( 25V max).
+ You must apply a calibration factor in your code to convert the analog reading to real voltage:
 
 cpp
 const float VOLTAGE_RATIO = 4.40; // Adjust based on your module’s divider ratio
