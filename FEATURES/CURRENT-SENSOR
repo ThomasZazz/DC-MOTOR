@@ -9,7 +9,7 @@ A green screw terminal (for high current connections),
 A 3-pin header for low-voltage connections (VCC, GND, OUT).
 
 
-###  Electrical Connections
+  Electrical Connections
 
 VCC              +5V rail on the breadboard               
 GND              Ground rail on the breadboard            
