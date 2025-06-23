@@ -39,6 +39,6 @@ Tips for Reliable Operation
 
  Ensure screw terminals are tightly fastened to handle motor current.
  Use thick wires for high-current paths.
- Double-check that **GND is common** across Arduino, sensor, and motor driver.
+ Double-check that GND is common across Arduino, sensor, and motor driver.
  Keep analog wires (e.g. OUT to A3) short and separated from high-current cables to reduce noise.
 
