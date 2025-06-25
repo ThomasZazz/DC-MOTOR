@@ -1,5 +1,4 @@
-
-##  Library Dependencies
+Library Dependencies
 
 cpp
 #include <Wire.h>
@@ -9,7 +8,7 @@ cpp
 These libraries are used to communicate with an **HD44780-compatible LCD over I2C**. They allow for simple display of real-time measurements and system status.
 
 
-##  Pin Configuration
+Pin Configuration
 
 cpp
 const int PWM_MOTOR = 6;             // PWM signal to control motor speed
@@ -28,10 +27,10 @@ These analog inputs receive sensor data used to measure the voltage and current 
 cpp
 const int EMERGENCY_BUTTON = 13;     // Digital input for emergency stop button
 
-This pin is used to detect a **pull-down signal** when the emergency button is pressed. It's configured with an internal pull-up resistor.
+This pin is used to detect a pull-down signal when the emergency button is pressed. It's configured with an internal pull-up resistor.
 
 
-##  Calibration & Constants
+  Calibration & Constants
 
 cpp
 const float VCC = 5.0;                      // System supply voltage
@@ -43,7 +42,7 @@ const float CURRENT_SENSITIVITY = 0.066;    // Sensor sensitivity in V/A (e.g., 
 These constants are used to convert analog readings into real-world voltage and current values. They are **sensor- and circuit-specific**, and may require tuning per hardware setup.
 
 
-##  Timing Constants
+ Timing Constants
 
 cpp
 const unsigned long START_DELAY = 20000;    // 20 seconds delay before test starts
@@ -52,7 +51,7 @@ const unsigned long TEST_DURATION = 180000; // Test duration of 3 minutes
 These delays define the **test automation schedule**, allowing for setup time and fixed test durations.
 
 
-##  `setup()` Function
+setup() Function
 
 cpp
 void setup() {
@@ -74,10 +73,10 @@ void setup() {
 This function initializes the **LCD, serial monitor, motor pins, and timer**. It does **not** start the motor immediately, allowing time for any last-minute preparations.
 
 
-## `loop()` Function
+loop() Function
 
 
-### Emergency Stop Handler
+Emergency Stop Handler
 
 cpp
 if (digitalRead(EMERGENCY_BUTTON) == LOW) {
@@ -89,10 +88,10 @@ if (digitalRead(EMERGENCY_BUTTON) == LOW) {
   while (1); // Infinite loop: system halted
 }
 
-If the emergency button is pressed, the system immediately shuts down the motor and freezes execution. This is a **safety-critical feature**.
+If the emergency button is pressed, the system immediately shuts down the motor and freezes execution. This is a safety-critical feature.
 
 
-### Test Start Trigger
+Test Start Trigger
 
 cpp
 if (!testStarted && now - programStartTime >= START_DELAY) {
@@ -108,7 +107,7 @@ if (!testStarted && now - programStartTime >= START_DELAY) {
 After a predefined delay (`START_DELAY`), the test begins. The motor is enabled at full speed, and system feedback is initialized.
 
 
-### Early Exit Condition
+Early Exit Condition
 
 cpp
 if (!testStarted || testCompleted) return;
@@ -116,7 +115,7 @@ if (!testStarted || testCompleted) return;
 If the test has not yet started, or has already ended, the loop exits early.
 
 
-### Test Duration Handler
+Test Duration Handler
 
 cpp
 if (now - testStartTime >= TEST_DURATION) {
@@ -131,7 +130,7 @@ if (now - testStartTime >= TEST_DURATION) {
 After the set test duration, the motor is stopped, and test is marked as complete.
 
 
-### Sensor Reading & Calculation
+Sensor Reading & Calculation
 
 cpp
 float voltageReading = analogRead(VOLTAGE_PIN);
@@ -144,10 +143,11 @@ if (current < 0.0) current = 0.0;
 
 float power = voltage * current;
 
-These calculations convert raw analog inputs to actual **voltage (V)**, **current (A)**, and **power (W)** values. Adjust calibration constants for accuracy depending on your sensors.
+These calculations convert raw analog inputs to actual voltage (V), current (A), and power (W) values.
+Adjust calibration constants for accuracy depending on your sensors.
 
 
-### Output to LCD
+ Output to LCD
 
 cpp
 lcd.setCursor(0, 0);
@@ -161,7 +161,7 @@ lcd.print(" S:100% ");
 The first line shows voltage and current; the second shows power and a placeholder "S:100%" (you could replace this with dynamic system status if needed).
 
 
-### Output to Serial Monitor
+ Output to Serial Monitor
 cpp
 Serial.print("VOLTAGE:"); Serial.print(voltage, 2); Serial.print("\t");
 Serial.print("CURRENT:"); Serial.print(current, 3); Serial.print("\t");
